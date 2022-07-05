@@ -7,7 +7,7 @@ class AppRouter {
         this.app.get("/", (_req, res) => {
             res.send("API Running");
         });
-        this.app.use("/api/todos", todosRouter);
+        this.app.use("/api/todo", todosRouter);
         this.app.use("/api/user", userRouter);
     }
 }

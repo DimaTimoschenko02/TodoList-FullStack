@@ -1,5 +1,9 @@
 // TODO: Put a real interfaces here
 
-export interface ITodo {
-    data: string;
-}
+export interface ITodo{
+    title: string;
+    body: string;
+    year: Date;
+    public: boolean;
+    completed: boolean;
+  }

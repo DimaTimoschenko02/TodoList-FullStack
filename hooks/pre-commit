@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "Precommit hook is running..."
-USER_NAME="user_name"
+USER_NAME="dima_timoschenko"
 ESLINT_MOBILE="$(git rev-parse --show-toplevel)/mobile/node_modules/.bin/eslint"
 TSLINT_BACKEND="$(git rev-parse --show-toplevel)/server/node_modules/.bin/tslint"
 
