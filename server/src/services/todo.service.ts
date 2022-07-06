@@ -8,26 +8,14 @@ import { ITodo } from "todos.type";
 import Todo from "../models/Todo";
 export default class TodoService {
   async deleteTodo(todoId: string) {
-    try {
-      return await Todo.findByIdAndDelete(todoId);
-    } catch (err) {
-      throw err;
-    }
+    return await Todo.findByIdAndDelete(todoId);
   }
   async findAll() {
-    try {
-      return await Todo.find();
-    } catch (err) {
-      throw err;
-    }
+    return await Todo.find();
   }
 
   async create(todo: DocumentDefinition<ITodo>): Promise<ITodo> {
-    try {
-      return await Todo.create(todo);
-    } catch (err) {
-      throw err;
-    }
+    return await Todo.create(todo);
   }
 
   async update(
@@ -38,11 +26,7 @@ export default class TodoService {
     return await Todo.findOneAndUpdate(query, update, options);
   }
 
-  async isExist(query: FilterQuery<ITodo>) {
-    try {
-      return await Todo.findOne(query);
-    } catch (err) {
-      throw err;
-    }
+  async findOne(query: FilterQuery<ITodo>) {
+    return await Todo.findOne(query);
   }
 }
