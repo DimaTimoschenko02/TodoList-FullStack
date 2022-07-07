@@ -1,12 +1,26 @@
 import {StatusBar} from 'expo-status-bar';
+import { ErrorMessage, Field, Form, Formik } from 'formik';
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import { QueryClient , QueryClientProvider, useQuery } from 'react-query';
+import todoService from './src/service/todoServise';
+
+const queryCliet = new QueryClient({
+  defaultOptions:{},
+})
+
+
 export default function App() {
+  const { data } = useQuery('todo', todoService.getAllTodo.bind(todoService));
+
   return (
-    <View style={styles.container}>
-      <Text>We are Live!</Text>
+    <QueryClientProvider client={queryCliet}>
+      <View style={styles.container}>
+      
+      <Text>data</Text>
       <StatusBar style="auto" />
     </View>
+    </QueryClientProvider>
   );
 }
 

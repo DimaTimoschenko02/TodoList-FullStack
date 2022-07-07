@@ -2,6 +2,7 @@ import bodyParser from "body-parser";
 import express from "express";
 
 import connectDB from "../config/database";
+import cors from 'cors'
 import { graphqlHTTP } from "express-graphql";
 import { buildSchema } from "graphql";
 import AppRouter from "./routes";
@@ -17,7 +18,7 @@ connectDB();
 app.set("port", process.env.PORT || 3001);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-
+app.use(cors())
 router.init();
 app.use(errorMiddleware)
 
