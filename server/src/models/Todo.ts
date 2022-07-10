@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from "uuid";
 export interface ITodo extends Document {
   title: string;
   body: string;
-  year: Date;
+  year: string;
   public: boolean;
   completed: boolean;
 }
@@ -21,10 +21,8 @@ const todoSchema: Schema = new Schema({
     required: true,
   },
 
-  year: {
-    type: Date,
-    default: Date.now
-  },
+  year: String,
+   
   public: {
     type: Boolean,
     default: true

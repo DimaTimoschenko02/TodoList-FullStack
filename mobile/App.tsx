@@ -1,22 +1,29 @@
-import React from 'react';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import {StyleSheet, Text, View} from 'react-native';
-import { QueryClient , QueryClientProvider, useQuery } from 'react-query';
-import todoService from './src/service/TodoService';
-import { Me } from './src/components/Me';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { StyleSheet } from "react-native";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ROUTER_KEYS } from "./src/static/";
+import HomePage from "./src/pages/homePage";
+import UpdateTodoPage from "./src/pages/updateTodoPage";
+import CreateTodoPage from "./src/pages/createTodoPage";
 
-const queryCliet = new QueryClient()
-
+const Stack = createNativeStackNavigator();
+export const queryClient = new QueryClient();
 
 export default function App() {
-  
   return (
-    <QueryClientProvider client={queryCliet} contextSharing={true}>
-      <View style={styles.container}>
-      <Text>klol</Text>
-      <Me/>
-      </View>
-      <ReactQueryDevtools initialIsOpen = {false}/>
+    <QueryClientProvider client={queryClient} contextSharing={true}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name={ROUTER_KEYS.home} component={HomePage} />
+          <Stack.Screen name={ROUTER_KEYS.createTodo} component={CreateTodoPage} />
+          <Stack.Screen name={ROUTER_KEYS.updateTodo} component={UpdateTodoPage} />
+          
+        </Stack.Navigator>
+      </NavigationContainer>
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
@@ -24,8 +31,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 });

@@ -3,7 +3,7 @@
 export interface ITodo{
     title: string;
     body: string;
-    year: Date;
+    year: string;
     public: boolean;
     completed: boolean;
   }
