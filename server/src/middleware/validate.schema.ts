@@ -1,4 +1,4 @@
-import { AnySchema , AnyObjectSchema } from "yup";
+import { AnySchema } from "yup";
 import {Request, Response , NextFunction} from 'express'
 import ApiError from "../exeptions/apiErrors";
 const validate = (schema:AnySchema) =>
