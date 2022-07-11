@@ -12,56 +12,33 @@ class TodoService extends ApiService {
   }
 
   async getAllTodo(): Promise<TodoModel[]> {
-    try {
-      const { data } = await this.getAllTodoHandler(`${this.todoUrl}`);
-      const res = data.map((data) => new TodoModel(data));
-      return res;
-    } catch (err: any) {
-      return err;
-    }
+    const { data } = await this.getAllTodoHandler(`${this.todoUrl}`);
+    const res = data.map((data) => new TodoModel(data));
+    return res;
   }
 
   async getTodo(id: string) {
-    try {
-      const { data } = await this.getOneTodoHandler(`${this.todoUrl}`, id);
-      return new TodoModel(data);
-    } catch (err) {
-      return err;
-    }
+    const { data } = await this.getOneTodoHandler(`${this.todoUrl}`, id);
+    return new TodoModel(data);
   }
 
   async addTodo(todo: ITodo): Promise<TodoModel> {
-    try {
-      const { data } = await this.addTodoHandler(
-        `${this.todoUrl}/create`,
-        todo
-      );
-      return new TodoModel(data);
-    } catch (err: any) {
-      return err;
-    }
+    const { data } = await this.addTodoHandler(`${this.todoUrl}/create`, todo);
+    return new TodoModel(data);
   }
 
-  async updateTodo(todo: ITodo):Promise<TodoModel> {
-    try {
-      const { data } = await this.updateTodoHandler(
-        `${this.todoUrl}/update`,
-        todo
-      );
-      const mod = new TodoModel(data);
-      return mod;
-    } catch (err:any) {
-      return err;
-    }
+  async updateTodo(todo: ITodo): Promise<TodoModel> {
+    const { data } = await this.updateTodoHandler(
+      `${this.todoUrl}/update`,
+      todo
+    );
+    const mod = new TodoModel(data);
+    return mod;
   }
 
   async deleteTodo(id: string) {
-    try {
-      const { data } = await this.delTodoHandler(`${this.todoUrl}/delete`, id);
-      return data;
-    } catch (err) {
-      return err;
-    }
+    const { data } = await this.delTodoHandler(`${this.todoUrl}/delete`, id);
+    return data;
   }
 }
 
