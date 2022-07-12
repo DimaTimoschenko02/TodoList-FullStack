@@ -1,4 +1,4 @@
-import { AnySchema } from "yup";
+import { AnySchema , AnyObjectSchema } from "yup";
 import {Request, Response , NextFunction} from 'express'
 import ApiError from "../exeptions/apiErrors";
 const validate = (schema:AnySchema) =>
@@ -12,7 +12,7 @@ const validate = (schema:AnySchema) =>
 
             return next()
         }catch(err:any){
-            return next(new ApiError(400, 'invalid data'));
+            return next(new ApiError(400, err.message));
         }
     }
 

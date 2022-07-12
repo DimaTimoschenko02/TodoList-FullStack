@@ -1,15 +1,21 @@
 import { Router, Request, Response } from "express";
-//import 
+import { userSchema } from "../../schemas/user.schema";
+import userController from "../../controllers/user.controller";
+import { tryCatchchMiddleware , isExistUserMiddleware , comparePassword, validateRequest} from "../../middleware";
+
+
 const router: Router = Router();
 
-// @route   POST api/user
-// @desc    Register user given their email and password, returns the token upon successful registration
-// @access  Public
 router.post(
-  "/register",
-  async (_: Request, res: Response) => {
-    res.send("Add registration logic there");
-  }
+  "/sign-up",
+  [ validateRequest(userSchema) , isExistUserMiddleware('signup')],
+  tryCatchchMiddleware(userController.signup.bind(userController))
 );
+
+router.post(
+  '/sign-in',
+  [validateRequest(userSchema) ,isExistUserMiddleware('sign-in'), comparePassword()],
+   tryCatchchMiddleware(userController.signin.bind(userController))
+)
 
 export default router;
