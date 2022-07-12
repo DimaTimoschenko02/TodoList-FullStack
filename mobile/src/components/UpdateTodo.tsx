@@ -11,6 +11,7 @@ import { queryClient } from "../../App";
 import { Nav } from "../types/navigationTypes";
 import MyInput from "../ui/MyInput";
 import { validationTodoSchema } from "../validation/todo.validationSchema";
+import { styles } from "../styles/Theme";
 
 export interface IProps {
   todo: TodoModel | {};
@@ -50,7 +51,7 @@ export default function UpdateTodo({ todo }: IProps) {
       validationSchema = {validationTodoSchema}
     >
       {({ values, handleChange, setFieldValue, handleSubmit, errors }) => (
-        <Stack>
+        <Stack style = {styles.formContainer}>
           <MyInput
             label="titile"
             onChange={handleChange("title")}

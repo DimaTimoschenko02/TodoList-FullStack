@@ -1,0 +1,16 @@
+export const marginTop = 10;
+export const padding = 10;
+export const colorAddButton = '#47c98c';
+export const colorRed = 'red';
+export const colorOrange = 'orange';
+export const colorEdit = '#f5c242';
+export const colorDelete = '#c94747';
+export const spacingText = 20;
+export const spacingButtons = 15;
+export const colorError = 'error';
+export const colorPrimary = 'primary';
+export const loginButtonColor = '#47c98c';
+export const registerButtonColor = '#47c98c';
+export const homeRegisterButtonColor = '#bae1ff';
+export const homeLoginButtonColor = '#ffdfba';
+export const homeLogoutButtonColor = '#ffdfba';
