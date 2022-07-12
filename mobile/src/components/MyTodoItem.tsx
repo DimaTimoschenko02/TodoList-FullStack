@@ -6,6 +6,7 @@ import todoService from "../services/TodoService";
 import { useMutation } from "react-query";
 import { QUERY_KEYS, ROUTER_KEYS } from "../static/";
 import { queryClient } from "../../App";
+import { styles } from "../styles/Theme";
 //style = {{borderColor: "#acc987" , borderWidth: 2 , borderRadius: 20}}
 interface ITodoElement {
   todo: TodoModel;
@@ -20,8 +21,8 @@ export default function TodoElement({ todo }: ITodoElement) {
     },
   });
   return (
-    <Stack spacing={10} mt={10} >
-      <HStack spacing={20} items="end" >
+    <Stack  style= {styles.formContainer} >
+      <HStack spacing={20} style={styles.text} >
         <Text  variant="h6" >{todo.title}</Text>
         <Text variant="subtitle2">{todo.year}</Text>
       </HStack>

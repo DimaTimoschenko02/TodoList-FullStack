@@ -10,8 +10,11 @@ export default class TodoService {
   async deleteTodo(todoId: string) {
     return await Todo.findByIdAndDelete(todoId);
   }
-  async findAll(id: string) {
-    return await Todo.find({userId:id});
+
+
+  async findAll(userId: string):Promise<ITodo[]> {
+    return await Todo.find({ $or: [{ public: true }, { userId }] });
+
   }
 
   async create(todo: DocumentDefinition<ITodo>): Promise<ITodo> {
