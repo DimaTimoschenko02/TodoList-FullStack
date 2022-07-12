@@ -26,4 +26,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: marginTop,
   },
+  list: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    flexDirection: "column",
+    
+  },
 });

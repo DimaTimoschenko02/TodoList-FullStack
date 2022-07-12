@@ -1,12 +1,6 @@
-import { Document, Model, model, Schema } from "mongoose";
-import { v4 as uuidv4 } from "uuid";
-export interface ITodo extends Document {
-  title: string;
-  body: string;
-  year: string;
-  public: boolean;
-  completed: boolean;
-}
+import mongoose , { Document, Model, model, Schema } from "mongoose";
+import { ITodo } from "todos.type";
+
 
 const todoSchema: Schema = new Schema({
   title: String,
@@ -21,7 +15,10 @@ const todoSchema: Schema = new Schema({
     required: true,
   },
 
-  year: String,
+  year: {
+    type: String,
+    default: 2022
+  },
    
   public: {
     type: Boolean,
@@ -30,7 +27,11 @@ const todoSchema: Schema = new Schema({
   completed:{
     type: Boolean,
     default:false
-  } 
+  },
+  userId: {
+		type: mongoose.Types.ObjectId,
+		ref: 'User'
+	}
 },
 {
   timestamps:true

@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import { ROUTER_KEYS } from "../static";
 import TodoList from "../components/MyTodoList";
 import { Stack, Button } from "@react-native-material/core";
+import { styles } from "../styles/Theme";
 
 export default function HomePage() {
   const navigation = useNavigation();
@@ -19,13 +20,3 @@ export default function HomePage() {
     </Stack>
   );
 }
-const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "flex-start",
-    flexDirection: "column",
-    
-  },
-});
