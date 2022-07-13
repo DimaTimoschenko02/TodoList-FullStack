@@ -2,13 +2,20 @@ import axios, { Axios, AxiosResponse } from "axios";
 import { ITodo } from "../types/todoTypes";
 import $api from "../http/axios";
 
+interface IRequest {
+  url: string;
+  data?: {
+    [key: string]: string | boolean | number;
+  };
+}
+
 export default class ApiService {
   serverUrl: string | undefined;
   api: string;
   fetchingService: Axios;
   constructor(
     serverUrl = "http://localhost:3001/",
-    fetchingService = $api,
+    fetchingService = axios,
     api = "api"
   ) {
     this.serverUrl = serverUrl;
@@ -19,30 +26,39 @@ export default class ApiService {
   private getFullApiUrl(url: string) {
     return `${this.serverUrl}${this.api}/${url}`;
   }
-
-  getAllTodoHandler(url: string): Promise<AxiosResponse<ITodo[]>> {
-    return this.fetchingService.get<ITodo[]>(this.getFullApiUrl(url));
+  private setAuthTokenToReq() {
+    return {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    };
   }
 
-  getOneTodoHandler(url: string, id: string): Promise<AxiosResponse<ITodo>> {
-    return this.fetchingService.get<ITodo>(this.getFullApiUrl(url) + `/${id}`);
+  getAll(req: IRequest) {
+    return this.fetchingService.get(this.getFullApiUrl(req.url), {
+      headers: this.setAuthTokenToReq(),
+    });
   }
 
-  addTodoHandler(url: string, data: ITodo): Promise<AxiosResponse<ITodo>> {
-    return this.fetchingService.post<ITodo>(this.getFullApiUrl(url), data);
+  getOne(req: IRequest) {
+    return this.fetchingService.get(this.getFullApiUrl(req.url), {
+      headers: this.setAuthTokenToReq(),
+    });
   }
 
-  updateTodoHandler(url: string, data: ITodo): Promise<AxiosResponse<ITodo>> {
-    console.log(data);
-    return this.fetchingService.put(
-      this.getFullApiUrl(url) + `/${data._id}`,
-      data
-    );
+  create(req: IRequest) {
+    return this.fetchingService.post(this.getFullApiUrl(req.url), req.data, {
+      headers: this.setAuthTokenToReq(),
+    });
   }
 
-  delTodoHandler(url: string, id: string): Promise<any> {
-    return this.fetchingService.delete<string>(
-      this.getFullApiUrl(url) + `/${id}`
-    );
+  update(req: IRequest) {
+    return this.fetchingService.put(this.getFullApiUrl(req.url), req.data, {
+      headers: this.setAuthTokenToReq(),
+    });
+  }
+
+  delete(req: IRequest) {
+    return this.fetchingService.delete(this.getFullApiUrl(req.url), {
+      headers: this.setAuthTokenToReq(),
+    });
   }
 }

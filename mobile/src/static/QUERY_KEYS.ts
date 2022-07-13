@@ -1,3 +1,6 @@
+
+
 export default{
-    Todo:'todo'
+    Todo:'todo',
+    User:'user'
 }

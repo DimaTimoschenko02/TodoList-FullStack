@@ -9,7 +9,7 @@ import { ROUTER_KEYS, QUERY_KEYS } from "../static/";
 import { useMutation } from "react-query";
 import { queryClient } from "../../App";
 import { Nav } from "../types/navigationTypes";
-import MyInput from "../ui/MyInput";
+import MyInput from "./ui/MyInput";
 import { validationTodoSchema } from "../validation/todo.validationSchema";
 import { styles } from "../styles/Theme";
 
