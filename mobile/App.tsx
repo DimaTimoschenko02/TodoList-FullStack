@@ -19,7 +19,7 @@ export default function App() {
     <QueryClientProvider client={queryClient} contextSharing={true}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name={ROUTER_KEYS.home} component={HomePage} />
+          <Stack.Screen name={ROUTER_KEYS.home} component={HomePage}/>
           <Stack.Screen name={ROUTER_KEYS.createTodo} component={CreateTodoPage} />
           <Stack.Screen name={ROUTER_KEYS.updateTodo} component={UpdateTodoPage} />
           <Stack.Screen name={ROUTER_KEYS.login} component={LoginPage} />

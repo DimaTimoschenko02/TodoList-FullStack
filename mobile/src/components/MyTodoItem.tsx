@@ -16,7 +16,6 @@ export default function TodoElement({ todo }: ITodoElement) {
   const navigation = useNavigation();
   const mutation = useMutation(todoService.deleteTodo.bind(todoService), {
     onSuccess: () => {
-      console.log("delete");
       queryClient.invalidateQueries(QUERY_KEYS.Todo);
     },
   });

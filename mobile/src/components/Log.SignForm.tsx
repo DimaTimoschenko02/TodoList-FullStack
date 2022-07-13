@@ -16,16 +16,17 @@ import { loginSchema, signupSchema } from "../validation/user.validationSchema";
 
 type TypeAction = { action: "sign-up" | "login" };
 export default function LogSignForm({ action }: TypeAction) {
-
+  console.log({ action });
   const navigation = useNavigation();
 
   const onSuccessMutation = {
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEYS.User);
       navigation.navigate(ROUTER_KEYS.home as any);
+      console.log("home");
     },
   };
-  
+
   const mutationLogin = useMutation(
     userService.login.bind(userService),
     onSuccessMutation
@@ -48,11 +49,11 @@ export default function LogSignForm({ action }: TypeAction) {
               email: "",
               password: "",
               avatar: "",
-              confirmPassword:""
+              confirmPassword: "",
             }
           : {}
       }
-      validationSchema = { (action === 'login') ? loginSchema:signupSchema }
+      validationSchema={action === "login" ? loginSchema : signupSchema}
       onSubmit={async (values) => {
         action === "login"
           ? mutationLogin.mutate(values as ILoginUser)
@@ -76,16 +77,24 @@ export default function LogSignForm({ action }: TypeAction) {
             error={errors.password}
           />
           {action === "sign-up" ? (
-            <MyInput
-              label="avatar"
-              onChange={handleChange("avatar")}
-              value={values.avatar}
-              placeholder={"photo"}
-              error={errors.avatar}
-            />
+            <Stack >
+              <MyInput
+                label="confirmPassword"
+                onChange={handleChange("confirmPassword")}
+                value={values.confirmPassword}
+                placeholder={"confirmPassword"}
+                error={errors.confirmPassword}
+              />
+              <MyInput
+                label="avatar"
+                onChange={handleChange("avatar")}
+                value={values.avatar}
+                placeholder={"photo"}
+                error={errors.avatar}
+              />
+            </Stack>
           ) : null}
 
-          
           {action === "login" ? (
             <Button
               onPress={() => handleSubmit()}
@@ -98,7 +107,7 @@ export default function LogSignForm({ action }: TypeAction) {
               onPress={() => handleSubmit()}
               color={registerButtonColor}
               title={action.toUpperCase()}
-              disabled={!values.email || !values.password || !values.avatar}
+              disabled={!values.email || !values.password || !values.avatar || !values.confirmPassword}
             />
           )}
         </Stack>

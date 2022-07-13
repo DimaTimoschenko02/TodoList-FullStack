@@ -17,7 +17,7 @@ export default function CreateTodo() {
 
   const addMutation = useMutation(todoService.addTodo.bind(todoService), {
     onSuccess: () => {
-      console.log('add')
+
       queryClient.invalidateQueries(QUERY_KEYS.Todo);
     },
   })
