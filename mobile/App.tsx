@@ -11,12 +11,13 @@ import CreateTodoPage from "./src/pages/createTodoPage";
 import LoginPage from "./src/pages/loginPage";
 import SignUpPage from "./src/pages/signUpPage";
 
-const Stack = createNativeStackNavigator();
 export const queryClient = new QueryClient();
+const Stack = createNativeStackNavigator();
+
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient} contextSharing={true}>
+    <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name={ROUTER_KEYS.home} component={HomePage}/>
@@ -26,7 +27,6 @@ export default function App() {
           <Stack.Screen name={ROUTER_KEYS.signup} component={SignUpPage} />
         </Stack.Navigator>
       </NavigationContainer>
-      <ReactQueryDevtools initialIsOpen={true} />
     </QueryClientProvider>
   );
 }

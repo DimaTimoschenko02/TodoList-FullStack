@@ -10,25 +10,20 @@ import {
   homeLoginButtonColor,
 } from "../styles/constants";
 import LogSignForm from "../components/Log.SignForm";
+import { Nav } from "../types/navigationTypes";
+import LoginForm from "../components/LoginForm";
 
-{
-  /* <Button
-            title="SIGN-UP"
-            color={homeRegisterButtonColor}
-            onPress={() => {
-              return navigation.navigate(ROUTER_KEYS.signup as any);
-            }}
-          /> */
-}
 
 export default function HomePage() {
   const token = localStorage.getItem("token");
-  const navigation = useNavigation();
+  
+  const navigation = useNavigation<Nav>();
   console.log('HOME')
   console.log({ token });
   if(!token){
+    console.log('home, login')
     return (
-      <LogSignForm action = 'login'/>
+      <LoginForm/>
     )
   }
   return(
@@ -39,7 +34,7 @@ export default function HomePage() {
             title="add new todo"
             //color={colorOrange}
             onPress={() => {
-              return navigation.navigate(ROUTER_KEYS.createTodo as any);
+              return navigation.navigate(ROUTER_KEYS.createTodo);
             }}
           />
         </HStack>
@@ -50,14 +45,14 @@ export default function HomePage() {
             title="Register"
             color={homeRegisterButtonColor}
             onPress={() => {
-              return navigation.navigate(ROUTER_KEYS.signup as any);
+              return navigation.navigate(ROUTER_KEYS.signup);
             }}
           />
           <Button
             title="Login"
             color={homeLoginButtonColor}
             onPress={() => {
-              return navigation.navigate(ROUTER_KEYS.login as any);
+              return navigation.navigate(ROUTER_KEYS.login);
             }}
           />
         </HStack>
@@ -68,14 +63,14 @@ export default function HomePage() {
             title="Logout"
             //color={homeLogoutButtonColor}
             onPress={() => {
-              navigation.navigate(ROUTER_KEYS.login as any)
+              navigation.navigate(ROUTER_KEYS.login)
               return localStorage.removeItem('token');
               
             }}
           />
         </HStack>
       )}
-      {!!token && (
+      {token && (
         <HStack>
           <TodoList />
         </HStack>

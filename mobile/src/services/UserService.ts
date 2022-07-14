@@ -24,7 +24,9 @@ class UserService extends ApiService {
 
     // i m still dont realize if i need a user from back
     const { data: _user, token } = data;
-    return this.setTokenToLocalStor(token);
+    localStorage.setItem("token", token);
+    return token
+    //return this.setTokenToLocalStor(token);
   }
   async signup(user: ISignUser) {
     const { data } = await this.create({
@@ -37,5 +39,5 @@ class UserService extends ApiService {
   }
 }
 
-const todoService = new UserService();
-export default todoService;
+const userService = new UserService();
+export default userService;
