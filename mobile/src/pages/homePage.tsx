@@ -18,14 +18,12 @@ export default function HomePage() {
   const token = localStorage.getItem("token");
   
   const navigation = useNavigation<Nav>();
-  console.log('HOME')
-  console.log({ token });
-  if(!token){
-    console.log('home, login')
-    return (
-      <LoginForm/>
-    )
-  }
+
+  // if(!token){
+  //   return (
+  //     <LoginForm/>
+  //   )
+  // }
   return(
     <Stack>
       {token && (

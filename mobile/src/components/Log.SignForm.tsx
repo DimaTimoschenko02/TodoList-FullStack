@@ -17,14 +17,12 @@ import { Nav } from "../types/navigationTypes";
 
 type TypeAction = { action: "sign-up" | "login" };
 export default function LogSignForm({ action }: TypeAction) {
-  console.log({ action });
   const navigation = useNavigation<Nav>();
 
   const onSuccessMutation = {
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEYS.User);
       navigation.navigate(ROUTER_KEYS.home);
-      console.log("home");
     },
   };
 
