@@ -35,3 +35,57 @@ export const styles = StyleSheet.create({
     
   },
 });
+
+import { THEME } from "./constants/index";
+
+export const Styles = StyleSheet.create({
+    buttonContainer: {
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: "center",
+        padding: THEME.Spacings.sp10,
+        borderRadius: THEME.Spacings.sp5,
+        backgroundColor: THEME.Colors.blue,
+        marginTop: THEME.Spacings.sp10,
+        marginBottom: THEME.Spacings.sp10,
+        height: THEME.Size.size40,
+        width: THEME.Size.size150
+    },
+    columnContainer: {
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: "center",
+        backgroundColor: THEME.Colors.white,
+    },
+    rowContainer: {
+        display: "flex",
+        flexDirection: "row",
+    },
+    buttonText: {
+        color: THEME.Colors.white,
+    },
+    topBottomMarginContainer: {
+        marginTop: THEME.Spacings.sp5,
+        marginBottom: THEME.Spacings.sp5
+    },
+    errorText: {
+        color: THEME.Colors.red
+    },
+    spreadRowContainer: {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+    },
+    paginationButtonContainer: {
+        display: "flex",
+        alignItems: 'center',
+        justifyContent: "center",
+        padding: THEME.Spacings.sp10,
+        borderRadius: THEME.Spacings.sp5,
+        backgroundColor: THEME.Colors.grayLight,
+        marginTop: THEME.Spacings.sp10,
+        marginBottom: THEME.Spacings.sp10,
+        height: THEME.Size.size40,
+        width: THEME.Size.size150
+    },
+})

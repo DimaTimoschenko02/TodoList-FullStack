@@ -1,5 +1,5 @@
 import axios, { Axios } from "axios";
-import { ITodo  } from "../types/todoTypes";
+import { ITodo, TodoQuery  } from "../types/todoTypes";
 import ApiService from "./ApiService";
 import TodoModel from "../models/TodoModel";
 class TodoService extends ApiService {
@@ -11,10 +11,11 @@ class TodoService extends ApiService {
     this.fetchingService = axios;
   }
 
-  async getAllTodo(query?: string):Promise<TodoModel[] | []>{
+  async getAllTodo(query?: TodoQuery):Promise<TodoModel[] | []>{
     const { data } = await this.getAll({url: this.todoUrl , query});
     if (!Array.isArray(data)) return [];
     const todos = data.map((data) => new TodoModel(data));
+    console.log({todos})
     return todos;
   }
 

@@ -39,15 +39,18 @@ export default class ApiService {
     localStorage.setItem("token", token);
   }
   getAll(req: IRequest) {
-    if (req.query) {
-      const query = this.createQuery(req.query);
-      return this.fetchingService.get(
-        `${this.getFullApiUrl(req.url)}?${query}`,
-        {
-          headers: this.setAuthTokenToReq(),
-        }
-      );
-    }
+    // if (req.query) {
+    //   let o = this.getFullApiUrl(req.url)
+      
+    //   const query = this.createQuery(req.query);
+    //   console.log(o +'?'+ query)
+    //   return this.fetchingService.get(
+    //     `${this.getFullApiUrl(req.url)}?${query}`,
+    //     {
+    //       headers: this.setAuthTokenToReq(),
+    //     }
+    //   );
+    // }
     return this.fetchingService.get(this.getFullApiUrl(req.url), {
       headers: this.setAuthTokenToReq(),
     });

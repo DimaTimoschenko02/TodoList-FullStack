@@ -4,7 +4,7 @@ import {
   QueryOptions,
   UpdateQuery,
 } from "mongoose";
-import { ITodoFilterQuery} from "../controllers/todo.controller";
+import { IFilterQuery } from "../controllers/todo.controller";
 import { ITodo } from "todos.type";
 import Todo from "../models/Todo";
 
@@ -12,7 +12,7 @@ import Todo from "../models/Todo";
 
 interface ITodoParams {
   search: string,
-  status?: string
+  completed?: string
   page: string
 }
 
@@ -22,26 +22,23 @@ export default class TodoService {
     return await Todo.findByIdAndDelete(todoId);
   }
 
-  async findAll(userId: string,  {search, status, page}: ITodoParams): Promise<ITodo[]> {
+  async findAll(userId: string, search: string, status: string): Promise<ITodo[]> {
 
-    const limit = 5
-        const pageNumber = Number(page)
-        const regExp = new RegExp(search)
-        let query: ITodoFilterQuery = {
-            $or: [
-                { userId: userId },
-                { isPublic: true }
-            ],
-            title: { $regex: regExp, $options: 'i' },
-        }
-        if (status === "true") {
-            query = {...query, ...{completed: true}};
-        } else if (status === "false") {
-            query = {...query, ...{completed: false}};
-        }
+    // const max = 3
+    // let completedStatus;
+    // if (status === "completed") {
+    //     completedStatus = true;
+    // } else {
+    //     completedStatus = false;
+    // }
+    // const query = {
+    //     //title: { $regex: search, $options: "i" },
+    //     //completed: completedStatus,
+    //     $or: [{ public: true }, { userId }]
+    // };
 
-        const todos = await Todo.find(query).skip((pageNumber - 1) * limit).limit(limit);
-        return todos
+    const todos = await Todo.find();
+    return todos;
   }
 
   async create(todo: DocumentDefinition<ITodo>): Promise<ITodo> {

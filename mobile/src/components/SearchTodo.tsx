@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import todoService from "../services/TodoService";
 import { QUERY_KEYS } from "../static";
 //import { TodoQuery } from "../types/todoTypes";
@@ -9,11 +9,17 @@ import MyInput from "./ui/MyInput";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { Input } from "@material-ui/core";
 import SearchInput from "./ui/SearchInput";
+import { TodoQuery } from "../types/todoTypes";
 export function SearchTodo() {
+
   let [year, setYear] = useState(new Date().getFullYear().toLocaleString());
   let [completed, setCompleted] = useState(false);
   let [search, setSearch] = useState("");
+  
+  const [page, setPage] = useState(1);
+  const queryClient = useQueryClient()
 
+  
   const { mutate: mutateQuery } = useMutation(
     QUERY_KEYS.Todo,
     (query: TodoQuery) => todoService.getAllTodo(query),
@@ -27,7 +33,7 @@ export function SearchTodo() {
   return (
     <View>
       <SearchInput name="Search" value={search} onChangeText={setSearch} />
-      <SearchInput name="year" value={year} onChangeText={setYear} />
+      
       <BouncyCheckbox
         text="completed"
         isChecked={completed}
@@ -35,7 +41,7 @@ export function SearchTodo() {
       />
       <TouchableOpacity
         onPress={() => {
-          const query = { search, completed, year };
+          const query = { search, completed , page };
           setSearch('')
           setCompleted(false)
           setYear(new Date().getFullYear().toLocaleString())
@@ -43,6 +49,18 @@ export function SearchTodo() {
         }}
       >
         <Text>Search</Text>
+      </TouchableOpacity>
+      <Text>Page is {page}</Text>
+      <TouchableOpacity
+      onPress={() => {
+        setPage(page + 1)
+        const query = {search , completed , page}
+        setCompleted(false)
+        setYear(new Date().getFullYear().toLocaleString())
+        mutateQuery(query);
+      }}
+      >
+        <Text>MORE</Text>
       </TouchableOpacity>
     </View>
   );

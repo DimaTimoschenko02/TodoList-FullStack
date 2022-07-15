@@ -6,8 +6,7 @@ export interface ITodo{
     completed: boolean,
     _id?:string
 }
-// export interface TodoQuery{
-//     search:string,
-//     year:string,
-//     completed:boolean
-// }
+export interface TodoQuery{
+    search:string,
+    completed:string
+}

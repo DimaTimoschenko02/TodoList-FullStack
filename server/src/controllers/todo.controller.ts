@@ -1,36 +1,40 @@
 import { Response, Request, NextFunction } from "express";
 import TodoService from "../services/todo.service";
 
-export interface ITodoFilterQuery {
-  title: { $regex: RegExp; $options: string };
-  $or: { [key: string]: string | boolean }[];
-  isCompleted?: boolean;
-}
+// export interface IFilterQuery {
+//   title: { $regex: RegExp; $options: string };
+//   $or: { [key: string]: string | boolean }[];
+//   completed?: boolean;
+// }
 
-export interface ITodoParams{
-  page?: string
-}
+// interface ReqParams {
+//   page?: string;
+// }
 
-export interface ITodoQuery {
-  search?: string; 
-  status?: string 
-  page?: string
-}
-type ReqQuery = Request<ITodoParams, {}, {}, ITodoQuery>;
+// interface Query {
+//   search?: string;
+//   completed?: string;
+//   page?: string;
+// }
+// type ReqQuery = Request<
+//   ReqParams,
+//   {},
+//   {},
+//   { search?: string; status?: string }
+// >;
 
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
   async getAllTodoHandler(req: ReqQuery, res: Response) {
-    const userId = req.app.get("user")._id;
-    const {query, params } = req
-        const queryParams = {
-            search: query.search ? query.search : '', 
-            status: query.status ? query.status : '', 
-            page: query.page ? query.page : '1'
-        }
-        const todos = await this.todoService.findAll( userId , queryParams);
-        
+    // const search = req.query.search || "";
+    // const status = req.query.status || "";
+    // const userId = req.app.get("user")._id;
+    // console.log({search , status})
+    
+    //const todos = await this.todoService.findAll(userId, search, status);
+    const todos = await this.todoService.findAll()
+
     return { status: 200, todos };
   }
 
