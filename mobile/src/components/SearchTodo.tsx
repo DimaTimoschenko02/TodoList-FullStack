@@ -3,7 +3,7 @@ import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { useMutation } from "react-query";
 import todoService from "../services/TodoService";
 import { QUERY_KEYS } from "../static";
-import { TodoQuery } from "../types/todoTypes";
+//import { TodoQuery } from "../types/todoTypes";
 import { queryClient } from "../../App";
 import MyInput from "./ui/MyInput";
 import BouncyCheckbox from "react-native-bouncy-checkbox";

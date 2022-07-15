@@ -1,3 +1,3 @@
 export type Nav = {
-    navigate: (value: string) => void;
+    navigate: (value: string , id?:string) => void;
   }

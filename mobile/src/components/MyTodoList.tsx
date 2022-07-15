@@ -10,6 +10,23 @@ export default function TodoList() {
     QUERY_KEYS.Todo,
     () =>todoService.getAllTodo() 
   );
+
+//   const handleTodoEditClick = (id: string) => {
+//     setPage(page => {
+//         page = 1
+//         setDataEnded(false)
+//         navigation.navigate(ROUTER_KEYS.EDIT_TODO, { id: id })
+//         return page
+//     })
+// }
+// const handlePagination = () => {
+//   setPage(page => {
+//       page = page + 1
+//       fetchPaginatedTodos.mutate({query: `${filters}&page=${page}`})
+//       return page
+//   })
+// }
+
   return (
     <View>
       {isFetching ? (
