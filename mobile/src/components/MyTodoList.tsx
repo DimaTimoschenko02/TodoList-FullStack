@@ -8,7 +8,7 @@ import TodoElement from "./MyTodoItem";
 export default function TodoList() {
   const { isFetching, data } = useQuery(
     QUERY_KEYS.Todo,
-    todoService.getAllTodo.bind(todoService)
+    () =>todoService.getAllTodo() 
   );
   return (
     <View>
@@ -17,7 +17,7 @@ export default function TodoList() {
       ) : (
         <FlatList
           style={{ paddingTop: 15 }}
-          data={data}
+          data={  data? data: []}
           renderItem={({ item }) => <TodoElement todo={item} />}
         />
       )}

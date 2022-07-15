@@ -39,7 +39,7 @@ export default function CreateTodo() {
       {({ values, handleChange, setFieldValue, handleSubmit, errors }) => (
         <Stack style={styles.formContainer}>
           <MyInput
-            label="titile"
+            label="title"
             onChange={handleChange("title")}
             value={values.title}
             error={errors.title}

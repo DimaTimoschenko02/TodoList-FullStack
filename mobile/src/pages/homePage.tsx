@@ -9,6 +9,7 @@ import { QUERY_KEYS, ROUTER_KEYS } from "../static";
 import TodoList from "../components/MyTodoList";
 import { Nav } from "../types/navigationTypes";
 import { AuthContext } from "../../App";
+import { SearchTodo } from "../components/SearchTodo";
 
 
 export default function HomePage() {
@@ -28,12 +29,16 @@ export default function HomePage() {
         </TouchableOpacity>
       </View>
       <View>
+      <SearchTodo/>
         <TouchableOpacity
+          
           onPress={() => {
             navigation.navigate(ROUTER_KEYS.createTodo);
           }}
-        ></TouchableOpacity>
-        <Text>ADD TODO</Text>
+        >
+          <Text>ADD TODO</Text>
+        </TouchableOpacity>
+        
       </View>
       
       <TodoList/>

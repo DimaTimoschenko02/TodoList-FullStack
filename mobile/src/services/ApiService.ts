@@ -1,13 +1,13 @@
 import axios, { Axios, AxiosResponse } from "axios";
-import { ITodo } from "../types/todoTypes";
-import $api from "../http/axios";
-//import  AsyncStorage  from "@react-native-community/async-storage";
+import { ITodo, TodoQuery } from "../types/todoTypes";
+
 
 interface IRequest {
   url: string;
   data?: {
     [key: string]: string | boolean | number;
   };
+  query?: TodoQuery;
 }
 
 export default class ApiService {
@@ -32,10 +32,22 @@ export default class ApiService {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
     };
   }
+  private createQuery<T extends {}>(query: T) {
+    return new URLSearchParams(query);
+  }
   async saveToken(token: string) {
-    localStorage.setItem('token' , token)
+    localStorage.setItem("token", token);
   }
   getAll(req: IRequest) {
+    if (req.query) {
+      const query = this.createQuery(req.query);
+      return this.fetchingService.get(
+        `${this.getFullApiUrl(req.url)}?${query}`,
+        {
+          headers: this.setAuthTokenToReq(),
+        }
+      );
+    }
     return this.fetchingService.get(this.getFullApiUrl(req.url), {
       headers: this.setAuthTokenToReq(),
     });

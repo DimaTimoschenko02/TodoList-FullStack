@@ -17,7 +17,7 @@ const todoSchema: Schema = new Schema({
 
   year: {
     type: String,
-    default: 2022
+    default: '2022'
   },
    
   public: {
