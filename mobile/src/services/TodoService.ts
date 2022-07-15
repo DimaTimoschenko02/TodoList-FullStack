@@ -14,8 +14,8 @@ class TodoService extends ApiService {
   async getAllTodo(){
     const { data } = await this.getAll({url: this.todoUrl});
     if (!Array.isArray(data)) return;
-    const res = data.map((data) => new TodoModel(data));
-    return res;
+    const todos = data.map((data) => new TodoModel(data));
+    return todos;
   }
 
   async getTodo(id: string) {

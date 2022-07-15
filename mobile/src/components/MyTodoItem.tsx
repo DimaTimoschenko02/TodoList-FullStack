@@ -7,13 +7,16 @@ import { useMutation } from "react-query";
 import { QUERY_KEYS, ROUTER_KEYS } from "../static/";
 import { queryClient } from "../../App";
 import { styles } from "../styles/Theme";
-//style = {{borderColor: "#acc987" , borderWidth: 2 , borderRadius: 20}}
+import { Nav } from "../types/navigationTypes";
+
 interface ITodoElement {
   todo: TodoModel;
 }
 
 export default function TodoElement({ todo }: ITodoElement) {
-  const navigation = useNavigation();
+  const navigation = useNavigation<Nav>();
+
+
   const mutation = useMutation(todoService.deleteTodo.bind(todoService), {
     onSuccess: () => {
       queryClient.invalidateQueries(QUERY_KEYS.Todo);
@@ -34,10 +37,7 @@ export default function TodoElement({ todo }: ITodoElement) {
         <Button
           title="edit"
           onPress={() => {
-            return navigation.navigate(
-              ROUTER_KEYS.updateTodo as never,
-              todo as never
-            );
+            navigation.navigate(ROUTER_KEYS.updateTodo);
           }}
         />
         <Button title="delete" onPress={() => mutation.mutate(todo.id)} />

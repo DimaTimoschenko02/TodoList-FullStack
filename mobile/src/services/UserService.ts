@@ -12,10 +12,8 @@ class UserService extends ApiService {
     this.url = "user";
     this.fetchingService = axios;
   }
-  private setTokenToLocalStor(token: string) {
-    localStorage.setItem("token", token);
-    return token;
-  }
+
+
   async login(user: ILoginUser) {
     const { data } = await this.create({
       url: this.url + "/sign-in",
@@ -24,8 +22,8 @@ class UserService extends ApiService {
 
     // i m still dont realize if i need a user from back
     const { data: _user, token } = data;
-    localStorage.setItem("token", token);
-    return token
+    await this.saveToken(token)
+    return token;
     //return this.setTokenToLocalStor(token);
   }
   async signup(user: ISignUser) {
@@ -35,7 +33,8 @@ class UserService extends ApiService {
     });
 
     const { data: _user, token } = data;
-    return this.setTokenToLocalStor(token);
+    await this.saveToken(token);
+    return token
   }
 }
 

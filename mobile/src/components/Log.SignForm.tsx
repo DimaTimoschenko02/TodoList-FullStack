@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Button, Stack, TextInput } from "@react-native-material/core";
 import { Formik } from "formik";
 import { useMutation } from "react-query";
-import { queryClient } from "../../App";
+import { AuthContext, queryClient } from "../../App";
 import { QUERY_KEYS, ROUTER_KEYS } from "../static";
 import { styles } from "../styles/Theme";
 
@@ -15,25 +15,48 @@ import { ILoginUser, ISignUser } from "../types/userTypes";
 import { loginSchema, signupSchema } from "../validation/user.validationSchema";
 import { Nav } from "../types/navigationTypes";
 
+
 type TypeAction = { action: "sign-up" | "login" };
 export default function LogSignForm({ action }: TypeAction) {
   const navigation = useNavigation<Nav>();
 
-  const onSuccessMutation = {
-    onSuccess: () => {
-      queryClient.invalidateQueries(QUERY_KEYS.User);
-      navigation.navigate(ROUTER_KEYS.home);
-    },
+  const authContext = useContext(AuthContext);
+
+  const { mutate: mutateLogin } = useMutation(
+    QUERY_KEYS.User,
+    (user: ILoginUser) => userService.login(user),
+    {
+      onSuccess: (data) => {
+        localStorage.setItem("token", data);
+        authContext?.handleAuth(true);
+      },
+    }
+  );
+
+  const handleUserLogin = (user: ILoginUser) => {
+    mutateLogin(user);
   };
 
-  const mutationLogin = useMutation(
-    userService.login.bind(userService),
-    onSuccessMutation
+
+  const { mutate: mutateSign } = useMutation(
+    QUERY_KEYS.User,
+    (user: ISignUser) => userService.signup(user),
+    {
+      onSuccess: (data) => {        
+        localStorage.setItem("token", data);
+        authContext?.handleAuth(true);
+      },
+    }
   );
-  const mutationSign = useMutation(
-    userService.signup.bind(userService),
-    onSuccessMutation
-  );
+
+  const handleUserRegistration = (user: ISignUser) => {
+    mutateSign(user);
+  };
+
+
+
+
+
 
   return (
     <Formik
@@ -55,8 +78,8 @@ export default function LogSignForm({ action }: TypeAction) {
       validationSchema={action === "login" ? loginSchema : signupSchema}
       onSubmit={async (values) => {
         action === "login"
-          ? mutationLogin.mutate(values as ILoginUser)
-          : mutationSign.mutate(values as ISignUser);
+          ? mutateLogin(values as ILoginUser)
+          : mutateSign(values as ISignUser);
       }}
     >
       {({ values, handleChange, handleSubmit, errors }) => (
@@ -76,7 +99,7 @@ export default function LogSignForm({ action }: TypeAction) {
             error={errors.password}
           />
           {action === "sign-up" ? (
-            <Stack >
+            <Stack>
               <MyInput
                 label="confirmPassword"
                 onChange={handleChange("confirmPassword")}
@@ -106,7 +129,12 @@ export default function LogSignForm({ action }: TypeAction) {
               onPress={() => handleSubmit()}
               color={registerButtonColor}
               title={action.toUpperCase()}
-              disabled={!values.email || !values.password || !values.avatar || !values.confirmPassword}
+              disabled={
+                !values.email ||
+                !values.password ||
+                !values.avatar ||
+                !values.confirmPassword
+              }
             />
           )}
         </Stack>

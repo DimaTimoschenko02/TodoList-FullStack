@@ -4,5 +4,6 @@ export default{
     createTodo:'CreateTodo',
     updateTodo:'UpdateTodo',
     login:'Login',
-    signup:'Signup'
+    signup:'Signup',
+    auth: 'Auth'
 }
