@@ -4,17 +4,10 @@ import {
   QueryOptions,
   UpdateQuery,
 } from "mongoose";
-import { IFilterQuery } from "../controllers/todo.controller";
+import { Query } from "../controllers/todo.controller";
 import { ITodo } from "todos.type";
 import Todo from "../models/Todo";
 
-
-
-interface ITodoParams {
-  search: string,
-  completed?: string
-  page: string
-}
 
 
 export default class TodoService {
@@ -22,22 +15,18 @@ export default class TodoService {
     return await Todo.findByIdAndDelete(todoId);
   }
 
-  async findAll(userId: string, search: string, status: string): Promise<ITodo[]> {
-
+  async findAll(userId: string, query: Query): Promise<ITodo[]> {
     // const max = 3
-    // let completedStatus;
-    // if (status === "completed") {
-    //     completedStatus = true;
-    // } else {
-    //     completedStatus = false;
-    // }
-    // const query = {
-    //     //title: { $regex: search, $options: "i" },
-    //     //completed: completedStatus,
-    //     $or: [{ public: true }, { userId }]
-    // };
+    let criteria:{title:any , $or:any , completed?: any} = {
+      title: { $regex: query.search ? query.search : '' , $options: "i" },
+      $or: [{ public: true }, { userId }],
+    };
+    if(query.completed === 'true') criteria.completed = true
+    if(query.completed === 'false') criteria.completed = false
 
-    const todos = await Todo.find();
+    const todos = await Todo.find(criteria);
+    
+
     return todos;
   }
 

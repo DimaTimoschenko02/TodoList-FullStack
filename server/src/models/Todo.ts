@@ -26,7 +26,7 @@ const todoSchema: Schema = new Schema({
   },
   completed:{
     type: Boolean,
-    default:false
+    default: false
   },
   userId: {
 		type: mongoose.Types.ObjectId,

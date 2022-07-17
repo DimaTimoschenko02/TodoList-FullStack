@@ -7,40 +7,38 @@ import TodoService from "../services/todo.service";
 //   completed?: boolean;
 // }
 
-// interface ReqParams {
-//   page?: string;
-// }
+interface ReqParams {
+  page?: string;
+}
 
-// interface Query {
-//   search?: string;
-//   completed?: string;
-//   page?: string;
-// }
-// type ReqQuery = Request<
-//   ReqParams,
-//   {},
-//   {},
-//   { search?: string; status?: string }
-// >;
+export interface Query {
+  search?: string;
+  completed?: string;
+  page?: string;
+}
+type ReqQuery = Request<ReqParams, {}, {}, Query>;
 
 export class TodoController {
   constructor(private todoService: TodoService) {}
 
-  async getAllTodoHandler(req: ReqQuery, res: Response) {
-    // const search = req.query.search || "";
-    // const status = req.query.status || "";
-    // const userId = req.app.get("user")._id;
-    // console.log({search , status})
-    
-    //const todos = await this.todoService.findAll(userId, search, status);
-    const todos = await this.todoService.findAll()
+  async getAllTodoHandler(
+    req: Request<ReqParams, {}, {}, Query>,
+    res: Response
+  ) {
+    const search = req.query.search || "";
+    const status = req.query.completed || "";
+    const userId = req.app.get("user")._id;
+    console.log({ data: req.query });
 
-    return { status: 200, todos };
+    const data = await this.todoService.findAll(userId , req.query);
+    //const data = await this.todoService.findAll(userId)
+
+    return { status: 200, data };
   }
 
   async getTodoHandler(req: Request, res: Response) {
     const data = await this.todoService.findOne({ _id: req.params.id });
-    return { status: 200, data };
+    return { status: 201, data };
   }
   async updateTodoHandler(req: Request, res: Response) {
     const body = req.body;
